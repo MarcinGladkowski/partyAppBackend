@@ -3,10 +3,10 @@ import User from '../models/user';
 export default {
         async create(req, res) {
             const user = await new User({
-                email: 'test',
-                username: 'test',
-                password: '123456',
-                passwordConf: 'do zaszyfrowania'
+                email: req.body.email,
+                username: req.body.username,
+                password: req.body.password,
+                passwordConf: req.body.password
             }).save();
 
             console.log(user);

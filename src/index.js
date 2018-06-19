@@ -28,32 +28,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // routes config
-// app.use('/api/users', users());
+app.use('/api/users', users());
 
 
-app.post('/api/test/user', function(req, res){
-    const user = new User({
-        email: 'test',
-        username: 'test'
-    });
+// app.post('/api/test/user', function(req, res){
+//     const user = new User({
+//         email: 'test',
+//         username: 'test'
+//     });
 
-    try {
-        
-        user.save(function(err){
-            if (err) return handleError(err);
-        });
+    
+//         user.save(function(err){
+//             if (err) return handleError(err);
+//         });
 
-      }
-      catch(error) {
-        console.error(error);
-        // expected output: SyntaxError: unterminated string literal
-        // Note - error messages will vary depending on browser
-      }
-      
-    console.log(user);
 
-    return res.send('koniec funkcji');
-});
+//     return res.send('koniec funkcji');
+// });
 
 // errors handling
 // app.use(notFound);
