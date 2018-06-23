@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 // routes config
 app.use('/api/users', users());
 app.use('/api/auth', auth());
-app.use('/api/auth', party());
+app.use('/api/party', party());
 
 // errors handling
 app.use(notFound);
