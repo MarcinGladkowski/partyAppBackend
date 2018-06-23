@@ -11,8 +11,16 @@ const PartySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    latitude:
-    longitude
+    latitude: {
+        type: Number
+    },
+    longitude: {
+        type: Number
+    },
+    createdDate: {
+        type: Date, 
+        default: Date.now 
+    }
 
 });
 
