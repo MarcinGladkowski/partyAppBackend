@@ -17,6 +17,9 @@ import users from './routes/users';
 import auth from './routes/auth';
 import party from './routes/party';
 
+// auth
+import verifyToken from './auth/authentication';
+
 mongoose.connect(dbConfig.mongoUrl);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
@@ -38,7 +41,7 @@ app.use(bodyParser.json());
 // routes config
 app.use('/api/users', users());
 app.use('/api/auth', auth());
-app.use('/api/party', party());
+app.use('/api/party', verifyToken,  party());
 
 // errors handling
 app.use(notFound);
