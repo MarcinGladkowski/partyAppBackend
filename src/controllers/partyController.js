@@ -11,5 +11,16 @@ export default {
         }).save();
 
         return res.send({'data': party, 'status': 'ok'})
+    },
+
+    async list(req, res) {
+
+        await Party.find({}, function(err, parties) {
+            const partyList = parties;
+
+            return res.send({'parties': partyList});
+         });
+
+        
     }
 }

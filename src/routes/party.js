@@ -7,5 +7,8 @@ export default () => {
 
     api.post('/', catchAsync(partyController.create));
 
+    api.get('/', catchAsync(partyController.list));
+
+
     return api;
 }
