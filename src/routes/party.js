@@ -1,11 +1,12 @@
 import { Router }  from 'express';
 import partyController from '../controllers/partyController';
 import { catchAsync }  from '../middlewares/errors';
+import verifyToken from '../auth/authentication';
 
 export default () => {
     const api = Router();
 
-    api.post('/', catchAsync(partyController.create));
+    api.post('/', verifyToken, catchAsync(partyController.create));
 
     api.get('/', catchAsync(partyController.list));
 

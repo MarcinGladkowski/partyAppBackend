@@ -31,7 +31,7 @@ const app = express();
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
     next();
 });
 
@@ -39,9 +39,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // routes config
-app.use('/api/users', users());
+app.use('/api/users',  users());
 app.use('/api/auth', auth());
-app.use('/api/party', verifyToken,  party());
+app.use('/api/party', party());
 
 // errors handling
 app.use(notFound);
