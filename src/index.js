@@ -24,31 +24,15 @@ mongoose.connection.on('error', (err) => {
 
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // routes config
 app.use('/api/users', users());
 
-
-// app.post('/api/test/user', function(req, res){
-//     const user = new User({
-//         email: 'test',
-//         username: 'test'
-//     });
-
-    
-//         user.save(function(err){
-//             if (err) return handleError(err);
-//         });
-
-
-//     return res.send('koniec funkcji');
-// });
-
 // errors handling
-// app.use(notFound);
-// app.use(catchErrors);
+app.use(notFound);
+app.use(catchErrors);
 
 // let's play!
 app.listen(config.server.port, () => {
