@@ -14,6 +14,8 @@ import mongoose from 'mongoose';
 
 // routes
 import users from './routes/users';
+import auth from './routes/auth';
+
 
 mongoose.connect(dbConfig.mongoUrl);
 mongoose.Promise = global.Promise;
@@ -35,6 +37,8 @@ app.use(bodyParser.json());
 
 // routes config
 app.use('/api/users', users());
+app.use('/api/auth', auth());
+
 
 // errors handling
 app.use(notFound);
