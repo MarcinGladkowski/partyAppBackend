@@ -10,6 +10,5 @@ export default () => {
 
     api.get('/', catchAsync(partyController.list));
 
-
     return api;
 }

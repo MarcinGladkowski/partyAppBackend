@@ -7,6 +7,7 @@ export default {
                 email: req.body.email,
                 username: req.body.username,
                 password: req.body.password,
+                active: false
             }).save();
 
         return res.status(201).send({'data': user, 'status': 'ok'});

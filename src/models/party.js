@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+const Schema = mongoose.Schema;
 
 const PartySchema = new mongoose.Schema({
     name: {
@@ -20,6 +21,9 @@ const PartySchema = new mongoose.Schema({
     createdDate: {
         type: Date, 
         default: Date.now 
+    }, 
+    userCreated: {
+        type: Schema.Types.ObjectId, ref: 'User'
     }
 
 });

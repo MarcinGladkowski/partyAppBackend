@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    active: {
+        type: Boolean,
+        required: true
+    }
 });
 
 UserSchema.pre('save', function (next) {
