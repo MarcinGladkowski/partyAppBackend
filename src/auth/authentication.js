@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import config from '../config/config';
 
 module.exports = function verifyToken(req, res, next) {
 
@@ -8,15 +9,14 @@ module.exports = function verifyToken(req, res, next) {
     return res.status(403).send({ auth: false,  token: null,  message: 'No token provided.' });
   } 
 
-  jwt.verify(token, 'marcinwrc123', function(err, decoded) {
+  jwt.verify(token, config.secret, function(err, decoded) {
 
     if (err) {
       return res.status(401).send({ auth: false, token: null, message: 'Failed to authenticate token.' });
     }
-    // if everything good, save to request for use in other routes
+    
     req.userId = decoded.id;
 
-    console.log('decoded id:');
     console.log(decoded.id);
 
     next();

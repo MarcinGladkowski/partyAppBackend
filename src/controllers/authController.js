@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
-
+import config from '../config/config';
 
 export default {
     async login(req, res) {
@@ -21,7 +21,7 @@ export default {
                 return res.status(401).send({ auth: false, token: null });
             } 
 
-            var token = jwt.sign({ id: user._id }, 'marcinwrc123', {
+            var token = jwt.sign({ id: user._id }, config.secret, {
                 expiresIn: 1800 // 30 min
             });
             
@@ -33,7 +33,7 @@ export default {
     async check(req, res) {
         console.log(`check is user has not expired token`);
         
-        var token = jwt.sign({ id: req.userId  }, 'marcinwrc123', {
+        var token = jwt.sign({ id: req.userId  }, config.config, {
             expiresIn: 1800
         });
 
