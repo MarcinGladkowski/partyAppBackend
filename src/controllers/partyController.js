@@ -15,10 +15,15 @@ export default {
     },
 
     async list(req, res) {
-        await Party.find({}, function(err, parties) {
-            const partyList = parties;
 
+        // await Party.find({}, function(err, parties) {
+        //     const partyList = parties;
+        //     return res.send({'parties': partyList});
+        // });
+
+        await Party.find({}).populate('userCreated').exec(function(error, parties) {
+            const partyList = parties;
             return res.send({'parties': partyList});
-         });
+        });
     }
 }
