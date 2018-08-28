@@ -1,3 +1,4 @@
 /src/config/*
 !/src/config/.gitkeep
+!/src/config/config.dist.js
 /node_modules/
