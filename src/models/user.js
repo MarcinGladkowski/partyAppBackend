@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
+import { hashString } from '../utils/password';
+
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -20,21 +22,24 @@ const UserSchema = new mongoose.Schema({
     },
     active: {
         type: Boolean,
-        required: true
+        required: true,
+        default: false
+    },
+    hash: {
+        type: String,
+        required: false
     }
 });
 
 UserSchema.pre('save', function (next) {
     var user = this;
-    bcrypt.hash(user.password, 10, function (err, hash) {
-        if (err) {
-            return next(err);
-        }
-        user.password = hash;
+    /** actualy password is the same as hash */
+    hashString(user.password).then(result => {
+        user.password = result;
+        user.hash = result;
         next();
-    })
+    });
 });
 
-
-var User = mongoose.model('User', UserSchema);
-module.exports = User;
+const User = mongoose.model('User', UserSchema);
+export default User;
