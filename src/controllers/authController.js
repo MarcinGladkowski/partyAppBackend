@@ -38,5 +38,14 @@ export default {
         });
 
         res.status(200).send({ auth: true, token: token });
+    },
+
+    //
+    async activate(req, res) {
+
+        console.log(req.params.hash)
+
+        res.status(200).send({ auth: false, param: req.params.hash });
     }
+
 };

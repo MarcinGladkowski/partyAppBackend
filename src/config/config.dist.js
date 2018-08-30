@@ -12,12 +12,12 @@ export default  {
     server: {
         port: Number(process.env.PORT)
     },
-    secret: 'bb34b5cb95fcb0869b9b54b115032c13',
+    secret: '1233456',
     emailAccount: {
-        user: `gladkiwrc@gmail.com`,
-        password: `leszekkuzaj`
+        user: `user`,
+        password: `password`
     },
     database: {
-        mongoUrl: "mongodb://marcin:marcin123@ds163610.mlab.com:63610/party-app-db"
+        mongoUrl: `mongo_db_url`
     }
 };

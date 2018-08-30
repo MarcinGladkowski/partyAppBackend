@@ -1,4 +1,5 @@
 import User from '../models/user';
+import Mailer from '../utils/mailer/mailer';
 
 export default {
         async create(req, res) {
@@ -10,6 +11,12 @@ export default {
                 active: false
             }).save();
 
-        return res.status(201).send({'data': user, 'status': 'ok'});
-    }
+            let email = new Mailer(req.body.email).sendEmail();
+
+            return res.status(201).send({'data': user, 'status': 'ok'});
+        },
+        /** action actualy for testing code */
+        async get(req, res) {
+            return res.status(200).send({'data': 'testowo', 'status': 'ok'});
+        }
 }

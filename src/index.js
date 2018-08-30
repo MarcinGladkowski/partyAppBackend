@@ -9,7 +9,6 @@ import babelPolyfill from 'babel-polyfill';
 import User from './models/user';
 
 // Connect to database
-import dbConfig from './config/database';
 import mongoose from 'mongoose';
 
 // routes
@@ -20,7 +19,7 @@ import party from './routes/party';
 // auth
 import verifyToken from './auth/authentication';
 
-mongoose.connect(dbConfig.mongoUrl);
+mongoose.connect(config.database.mongoUrl);
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
     console.log('Could not connect to the database. Exiting now...');

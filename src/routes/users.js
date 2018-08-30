@@ -6,6 +6,7 @@ export default () => {
     const api = Router();
 
     api.post('/', catchAsync(usersController.create));
+    api.get('/', catchAsync(usersController.get));
 
     return api;
 }
