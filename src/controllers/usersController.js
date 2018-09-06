@@ -1,5 +1,6 @@
 import User from '../models/user';
 import Mailer from '../utils/mailer/mailer';
+import { hashString } from '../utils/password';
 
 export default {
         async create(req, res) {
@@ -8,15 +9,16 @@ export default {
                 email: req.body.email,
                 username: req.body.username,
                 password: req.body.password,
-                active: false
             }).save();
 
-            let email = new Mailer(req.body.email).sendEmail();
+            let email = new Mailer(user).sendEmail();
 
             return res.status(201).send({'data': user, 'status': 'ok'});
         },
         /** action actualy for testing code */
         async get(req, res) {
-            return res.status(200).send({'data': 'testowo', 'status': 'ok'});
+
+            let data = `123456789`;
+            return res.status(200).send({'data': await hashString(data), 'status': 'ok'});
         }
 }
