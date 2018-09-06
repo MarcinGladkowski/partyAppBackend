@@ -15,10 +15,33 @@ export default {
 
             return res.status(201).send({'data': user, 'status': 'ok'});
         },
-        /** action actualy for testing code */
+        
+        /**
+         * Active user from email hash
+         * @param {*} req 
+         * @param {*} res 
+         */
+        async activate(req, res) {
+            
+            User.findOneAndUpdate({hash: req.body.hash}, {$set:{active:true}}, {new: true}, function(err, user){
+
+                if(err){
+                    return res.status(400).send({'status': 'error'});
+                }
+            
+                return res.status(201).send({'status': 'ok'});
+            });
+
+        },
+
+        /** 
+         * action actualy for testing code
+         *  
+         * */
         async get(req, res) {
 
             let data = `123456789`;
             return res.status(200).send({'data': await hashString(data), 'status': 'ok'});
         }
+
 }
