@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import { hashString } from '../utils/password';
-
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -33,10 +32,14 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function (next) {
     var user = this;
-    /** actualy password is the same as hash */
+    
     hashString(user.password).then(result => {
+
         user.password = result;
-        user.hash = result;
+
+        let randomString = Math.random().toString(36).substring(7);
+        user.hash = crypto.createHash('md5').update(randomString).digest('hex');
+
         next();
     });
 });
