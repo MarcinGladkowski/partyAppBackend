@@ -2,6 +2,7 @@ import User from '../models/user';
 import Mailer from '../utils/mailer/mailer';
 import { hashString } from '../utils/password';
 
+
 export default {
         async create(req, res) {
         
@@ -18,15 +19,13 @@ export default {
         
         /**
          * Active user from email hash
-         * @param {*} req 
-         * @param {*} res 
          */
         async activate(req, res) {
             
             User.findOneAndUpdate({hash: req.body.hash}, {$set:{active:true}}, {new: true}, function(err, user){
 
                 if(err){
-                    return res.status(400).send({'status': 'error'});
+                    return res.status(200).send({'status': 'error'});
                 }
             
                 return res.status(201).send({'status': 'ok'});
