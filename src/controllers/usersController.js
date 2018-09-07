@@ -24,7 +24,12 @@ export default {
             
             User.findOneAndUpdate({hash: req.body.hash}, {$set:{active:true}}, {new: true}, function(err, user){
 
-                if(err){
+                if (err) {
+                    console.log('error', err);
+                    return res.status(200).send({'status': 'error'});
+                }
+
+                if (user === null){
                     return res.status(200).send({'status': 'error'});
                 }
             
