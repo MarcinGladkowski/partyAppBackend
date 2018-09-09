@@ -31,10 +31,10 @@ export default {
 
     /** method calls to check is user has not expired token */
     async check(req, res) {
-        console.log(`check is user has not expired token`);
+        console.log(`check is user has not expired token (auth/check method)`);
         
-        var token = jwt.sign({ id: req.userId  }, config.config, {
-            expiresIn: 1800
+        var token = jwt.sign({ id: req.userId  }, config.secret, {
+            expiresIn: 1800 // 30 min
         });
 
         res.status(200).send({ auth: true, token: token });
