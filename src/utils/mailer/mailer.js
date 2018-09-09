@@ -34,7 +34,7 @@ export default class Mailer {
             subject: `Cześć ${user.username} Zarejestrowałeś się w aplikacji Imprezownia!`,
             text: 'potwierdź aktywację konta', 
             html: `<p>Potwierdź link aktywujący i zaloguj się do aplikacji!</p>
-                   <a href="#"/>Link aktywacyjny</a>`
+                   <a href="http://localhost:4200/action/activate/${user.hash}"/>Aktywuj konto</a>`
         };
     }
 
