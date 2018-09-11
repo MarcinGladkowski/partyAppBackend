@@ -15,6 +15,7 @@ import mongoose from 'mongoose';
 import users from './routes/users';
 import auth from './routes/auth';
 import party from './routes/party';
+import partyType from './routes/partyType';
 
 // auth
 import verifyToken from './auth/authentication';
@@ -41,6 +42,8 @@ app.use(bodyParser.json());
 app.use('/api/users',  users());
 app.use('/api/auth', auth());
 app.use('/api/party', party());
+app.use('/api/party-type', partyType());
+
 
 // errors handling
 app.use(notFound);
