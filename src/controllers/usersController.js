@@ -5,14 +5,12 @@ import { hashString } from '../utils/password';
 
 export default {
         async create(req, res) {
-        
-            const user = await new User({
-                email: req.body.email,
-                username: req.body.username,
-                password: req.body.password,
-            }).save();
 
-            let email = new Mailer(user).sendEmail();
+            const { email, username, password } = req.body;
+        
+            const user = await new User({ email, username, password }).save(); 
+
+            new Mailer(user).sendEmail();
 
             return res.status(201).send({'data': user, 'status': 'ok'});
         },
