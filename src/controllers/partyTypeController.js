@@ -5,7 +5,26 @@ export default {
     /** create new party */
     async create(req, res) {
 
-        return res.send({'status': 'ok'})
+      if (!req.file) {
+        console.log("No file received");
+        return res.send({success: false});
+      } else {
+        console.log('file received');
+
+        const image = {};
+        image.url = req.file.url;
+        image.id = req.file.public_id;
+
+        const partyType = await new PartyType({
+          name: req.body.name,
+          desc: req.body.desc,
+          path: req.body.path,
+        }).save();
+
+        return res.send({success: true})
+      }
+      
+      return res.send({'status': 'ok'})
     },
 
     /** get all parties */

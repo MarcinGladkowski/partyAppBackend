@@ -6,9 +6,8 @@ import upload from '../middlewares/multer';
 
 export default () => {
     const api = Router();
-    // const upload = multer({dest: 'uploads/'});
 
-    api.post('/', catchAsync(partyTypeController.create));
+    api.post('/', upload.single('icon'), catchAsync(partyTypeController.create));
 
     api.get('/', catchAsync(partyTypeController.list));
 
