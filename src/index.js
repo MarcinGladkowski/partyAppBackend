@@ -5,7 +5,10 @@ import { notFound, catchErrors } from './middlewares/errors';
 import bodyParser from 'body-parser';
 import register from 'babel-core/register';
 import babelPolyfill from 'babel-polyfill';
+// dev logs
+import morgan from 'morgan';
 
+// model
 import User from './models/user';
 
 // Connect to database
@@ -37,6 +40,7 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(morgan('dev'));
 
 // routes config
 app.use('/api/users',  users());
