@@ -12,7 +12,7 @@ const PartyTypeSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    path: {
+    filename: {
         type: String,
         required: true,
     },
