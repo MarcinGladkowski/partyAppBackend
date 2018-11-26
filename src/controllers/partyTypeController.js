@@ -9,46 +9,24 @@ export default {
         console.log("No file received");
         return res.send({success: false});
       } else {
-        console.log('file received');
 
-        const image = {};
-        image.url = req.file.url;
-        image.id = req.file.public_id;
+        console.log(req.file);
 
         const partyType = await new PartyType({
           name: req.body.name,
           desc: req.body.desc,
-          path: req.body.path,
+          filename: req.file.filename,
         }).save();
 
         return res.send({success: true})
       }
-      
-      return res.send({'status': 'ok'})
     },
 
     /** get all parties */
     async list(req, res) {
 
-    },
+      const types = await PartyType.find({});
 
-    async upload(req, res) {
-        if (!req.file) {
-            console.log("No file received");
-            return res.send({
-              success: false
-            });
-        
-          } else {
-            console.log('file received');
-
-            const image = {};
-            image.url = req.file.url;
-            image.id = req.file.public_id;
-
-            return res.send({
-              success: true
-            })
-          }
+      return res.send({types});
     }
 }

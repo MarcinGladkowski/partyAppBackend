@@ -9,8 +9,8 @@ export default {
             desc: req.body.desc,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            userCreated: req.userId
-            
+            userCreated: req.userId,
+            partyType: req.body.type
         }).save();
 
         return res.send({'data': party, 'status': 'ok'})
