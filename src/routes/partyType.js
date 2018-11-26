@@ -11,7 +11,5 @@ export default () => {
 
     api.get('/', catchAsync(partyTypeController.list));
 
-    api.post('/upload', upload.single('icon'), catchAsync(partyTypeController.upload));
-
     return api;
 }
