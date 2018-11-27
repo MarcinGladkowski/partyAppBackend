@@ -1,9 +1,9 @@
 import multer from 'multer';
 
 const storage = multer.diskStorage({
-    destination: '../uploads/',
+    destination: '../partyApp/src/assets/icons',
     filename: (req, file, cb) => {
-        cb(null,`${file.originalname}`)
+        cb(null,`${new Date().getTime()}-${file.originalname}`)
     }
   });
 
