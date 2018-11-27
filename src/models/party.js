@@ -24,9 +24,13 @@ const PartySchema = new mongoose.Schema({
     }, 
     userCreated: {
         type: Schema.Types.ObjectId, ref: 'User'
+    },
+    partyType: {
+        type: Schema.Types.ObjectId, ref: 'PartyType'
     }
-
 });
 
 var Party = mongoose.model('Party', PartySchema);
 module.exports = Party;
+
+// export default Party;
