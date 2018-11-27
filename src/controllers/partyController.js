@@ -18,7 +18,10 @@ export default {
     /** get all parties */
     async list(req, res) {
 
-        await Party.find({}).populate('userCreated').exec(function(error, parties) {
+        await Party.find({})
+        .populate('userCreated')
+        .populate('partyType')
+        .exec(function(error, parties) {
             const partyList = parties;
             return res.send({'parties': partyList});
         });
