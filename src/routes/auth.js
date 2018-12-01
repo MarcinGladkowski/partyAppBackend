@@ -11,6 +11,8 @@ export default () => {
     api.post('/check', verifyToken,  catchAsync(authController.check));
     // active user from register email 
     api.get('/activate/:hash', catchAsync(authController.activate));
+    // check user is exists by email
+    api.get('/is-exists', catchAsync(authController.isUserExists));
 
     return api;
 }

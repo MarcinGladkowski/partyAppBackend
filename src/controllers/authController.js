@@ -42,10 +42,19 @@ export default {
 
     //
     async activate(req, res) {
-
-        console.log(req.params.hash)
-
         res.status(200).send({ auth: false, param: req.params.hash });
-    }
+    },
 
+    /** For login and register unathorized forms */
+    async isUserExists(req, res) {
+
+        const queryEmail = req.query.email;
+
+        const user = await User.findOne({ email: queryEmail }, function (err, user) {
+            if (err) { return res.status(500).send('Error on the server.') }
+            if (!user) { return res.status(404).send('No user found.') }
+        });
+
+        res.status(200).send({'status': true});
+    }
 };
