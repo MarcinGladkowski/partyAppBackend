@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 
-module.exports = function verifyToken(req, res, next) {
+export default function verifyToken(req, res, next) {
 
   var token = req.headers['x-access-token'];
 
@@ -16,8 +16,6 @@ module.exports = function verifyToken(req, res, next) {
     }
     
     req.userId = decoded.id;
-
-    console.log(decoded.id);
 
     next();
   });

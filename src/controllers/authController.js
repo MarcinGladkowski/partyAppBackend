@@ -25,24 +25,23 @@ export default {
                 expiresIn: 1800 // 30 min
             });
             
-            res.status(200).send({ auth: true, token: token });
+            return res.status(200).send({ auth: true, token: token });
         });
     },
 
     /** method calls to check is user has not expired token */
     async check(req, res) {
-        console.log(`check is user has not expired token (auth/check method)`);
-        
+
         var token = jwt.sign({ id: req.userId  }, config.secret, {
             expiresIn: 1800 // 30 min
         });
 
-        res.status(200).send({ auth: true, token: token });
+        return res.status(200).send({ auth: true, token: token });
     },
 
     //
     async activate(req, res) {
-        res.status(200).send({ auth: false, param: req.params.hash });
+        return res.status(200).send({ auth: false, param: req.params.hash });
     },
 
     /** For login and register unathorized forms */
@@ -52,7 +51,7 @@ export default {
 
         const user = await User.findOne({ email: queryEmail }, function (err, user) {
             if (err) { return res.status(500).send('Error on the server.') }
-            if (!user) { return res.status(404).send('No user found.') }
+            if (!user) { return res.status(404).send({'message': 'No user found.'}) }
             if (user) { return res.status(200).send({'status': true}) }
         });
     }

@@ -8,7 +8,7 @@ export default () => {
     // login to app, return active token
     api.post('/', catchAsync(authController.login));
     // check is user is still login
-    api.post('/check', verifyToken,  catchAsync(authController.check));
+    api.post('/check', verifyToken, catchAsync(authController.check));
     // active user from register email 
     api.get('/activate/:hash', catchAsync(authController.activate));
     // check user is exists by email

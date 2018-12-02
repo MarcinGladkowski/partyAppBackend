@@ -12,5 +12,5 @@ export function catchAsync(fn) {
 
 export function catchErrors(err, req, res, next) {
     res.status(err.status || 500);
-    console.log(err.message);
+    console.log(`Catch error in middleware ${err.message}`);
 }
