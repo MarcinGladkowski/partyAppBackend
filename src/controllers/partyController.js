@@ -6,15 +6,10 @@ export default {
 
         console.log('test');
 
-        const party = await new Party({
-            name: req.body.name,
-            desc: req.body.desc,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            userCreated: req.userId,
-            partyType: req.body.type
-        }).save();
+        const { name, desc, latitude, longitude, partyType  } = req.body;
+        const userId = req.userId;
 
+        const party = await new Party({ name, desc, latitude, longitude, userId, partyType}).save();
         const saved = await Party.findOne({_id: party._id})
             .populate('userCreated')
             .populate('partyType')
