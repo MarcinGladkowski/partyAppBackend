@@ -3,7 +3,7 @@ import config from '../config/config';
 
 export default function verifyToken(req, res, next) {
 
-  var token = req.headers['x-access-token'];
+  const token = req.headers['x-access-token'] || req.query.token;
 
   if (!token) {
     return res.status(403).send({ auth: false,  token: null,  message: 'No token provided.' });
