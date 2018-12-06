@@ -3,3 +3,4 @@
 !/src/config/config.dist.js
 /node_modules/
 /uploads/
+/dist/
