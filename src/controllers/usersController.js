@@ -31,12 +31,12 @@ export default {
 
         },
 
-        /**  action actualy for testing code   */
+        /**  action actualy for testing code */
         async findOne(req, res) {
 
             const user = await User.findById(req.userId, function(err, user){});
 
-            return res.status(200).send({'data': user, 'status': 'ok'});
+            return res.status(200).send(user);
         }
 
 }
