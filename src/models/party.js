@@ -23,14 +23,20 @@ const PartySchema = new mongoose.Schema({
         default: Date.now 
     }, 
     userCreated: {
-        type: Schema.Types.ObjectId, ref: 'User'
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
     },
     partyType: {
-        type: Schema.Types.ObjectId, ref: 'PartyType'
-    }
+        type: Schema.Types.ObjectId, 
+        ref: 'PartyType'
+    },
+    participants: [{
+        type: Schema.Types.ObjectId, 
+        ref: 'User'
+    }]
 });
 
-var Party = mongoose.model('Party', PartySchema);
-module.exports = Party;
+// var Party = mongoose.model('Party', PartySchema);
+// module.exports = Party;
 
-// export default Party;
+export default mongoose.model('Party', PartySchema);
