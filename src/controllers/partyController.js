@@ -12,8 +12,10 @@ export default {
             .populate('userCreated')
             .populate('partyType')
             .exec();
+
+        // @TODO add location header - address to new resource    
  
-        return res.send({'data': saved});
+        return res.status(201).send({'data': saved});
     },
     /** get all parties */
     async getAll(req, res) {
@@ -21,6 +23,7 @@ export default {
         await Party.find({})
         .populate('userCreated')
         .populate('partyType')
+        .populate('participants')
         .exec(function(err, parties) {
             const partyList = parties;
             return res.send({'parties': partyList});
@@ -31,7 +34,8 @@ export default {
 
         const party = await Party.findById(req.params.id)
         .populate('userCreated')
-        .populate('partyType');
+        .populate('partyType')
+        .populate('participants');
 
         return res.status(200).send(party);
     }
