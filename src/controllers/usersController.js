@@ -37,6 +37,20 @@ export default {
             const user = await User.findById(req.userId, function(err, user){});
 
             return res.status(200).send(user);
+        },
+
+        async update(req, res) {
+
+            const { email, username } = req.body;
+
+            const user = await User.findById(req.userId, function(err, user){});
+            if (!user) return next();
+
+            user.email = email;
+            user.username = username;
+            await user.save();
+
+            return res.status(200).send(user);
         }
 
 }
