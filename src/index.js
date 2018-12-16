@@ -3,6 +3,7 @@ import { join } from 'path';
 import config from './config/config';
 import { notFound, catchErrors } from './middlewares/errors';
 import bodyParser from 'body-parser';
+import cors from 'cors';
 import register from 'babel-core/register';
 import babelPolyfill from 'babel-polyfill';
 // dev logs
@@ -29,19 +30,12 @@ mongoose.connection.on('error', (err) => {
     console.log('Could not connect to the database. Exiting now...');
     process.exit();
 });
-
 const app = express();
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
-    next();
-});
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-
 // routes config
 app.use('/api/users',  users());
 app.use('/api/auth', auth());
