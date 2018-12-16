@@ -9,6 +9,7 @@ export default () => {
     api.post('/', catchAsync(usersController.create));
     api.post('/activate', catchAsync(usersController.activate));
     api.get('/', verifyToken, catchAsync(usersController.findOne));
+    api.put('/', verifyToken, catchAsync(usersController.update));
 
     return api;
 }
