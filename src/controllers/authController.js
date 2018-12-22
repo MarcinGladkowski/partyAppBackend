@@ -2,11 +2,12 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
 import config from '../config/config';
+import { hashString } from '../utils/password';
 
 export default {
     async login(req, res) {
 
-        User.findOne({ email: req.body.email }, function (err, user) {
+        User.findOne({ email: req.body.email },  (err, user) => {
 
             if (err) {
                 return res.status(500).send('Error on the server.');
@@ -47,12 +48,14 @@ export default {
     /** For login and register unathorized forms */
     async isUserExists(req, res) {
 
-        const queryEmail = req.query.email;
-
-        const user = await User.findOne({ email: queryEmail }, function (err, user) {
+        const user = await User.findOne({ email: req.query.email }, (err, user) => {
             if (err) { return res.status(500).send('Error on the server.') }
             if (!user) { return res.status(404).send({'message': 'No user found.'}) }
             if (user) { return res.status(200).send({'status': true}) }
         });
+    },
+
+    async changePassword(req, res) {
+
     }
 };
