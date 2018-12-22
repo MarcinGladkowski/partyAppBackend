@@ -6,10 +6,10 @@ import upload from '../middlewares/multer';
 
 export default () => {
     const api = Router();
-
+    /** create new party type */
     api.post('/', upload.single('icon'), catchAsync(partyTypeController.create));
-
-    api.get('/', catchAsync(partyTypeController.list));
+    /** get all types */
+    api.get('/', verifyToken, catchAsync(partyTypeController.findAll));
 
     return api;
 }
