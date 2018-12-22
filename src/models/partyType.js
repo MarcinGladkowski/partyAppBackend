@@ -22,5 +22,4 @@ const PartyTypeSchema = new mongoose.Schema({
     }
 });
 
-const PartyType = mongoose.model('PartyType', PartyTypeSchema);
-export default PartyType;
+export default  mongoose.model('PartyType', PartyTypeSchema);

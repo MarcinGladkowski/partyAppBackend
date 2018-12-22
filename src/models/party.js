@@ -36,7 +36,4 @@ const PartySchema = new mongoose.Schema({
     }]
 });
 
-// var Party = mongoose.model('Party', PartySchema);
-// module.exports = Party;
-
 export default mongoose.model('Party', PartySchema);

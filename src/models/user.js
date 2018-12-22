@@ -36,12 +36,12 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', function (next) {
-    var user = this;
-    
+    const user = this;
+
     hashString(user.password).then(result => {
 
         user.password = result;
-
+        // hash to activate account
         let randomString = Math.random().toString(36).substring(7);
         user.hash = crypto.createHash('md5').update(randomString).digest('hex');
 
@@ -49,5 +49,4 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-const User = mongoose.model('User', UserSchema);
-export default User;
+export default mongoose.model('User', UserSchema);
