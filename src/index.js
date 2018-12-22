@@ -41,7 +41,7 @@ app.use('/api/users',  users());
 app.use('/api/auth', auth());
 app.use('/api/party', party());
 app.use('/api/party-type', partyType());
-
+app.use(express.static(__dirname + '/../public'));
 
 // errors handling
 app.use(notFound);
