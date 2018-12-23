@@ -13,6 +13,8 @@ export default () => {
     api.get('/activate/:hash', catchAsync(authController.activate));
     // check user is exists by email
     api.get('/is-exists', catchAsync(authController.isUserExists));
+    // update user password
+    api.post('/update-password', verifyToken, catchAsync(authController.updatePassword));
 
     return api;
 }
