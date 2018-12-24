@@ -38,5 +38,25 @@ export default {
         .populate('participants');
 
         return res.status(200).send(party);
+    },
+
+
+     async addParticipant(req, res) {
+        // user from request and id of party from url
+         const user = req.body;
+         const party = await Party.findById(req.params.id)
+             .populate('userCreated')
+             .populate('partyType')
+             .populate('participants');
+         party.participants.push(user);
+         party.save();
+         return res.status(200).send(party);
+     },
+
+    //@TODO remove paticipant from party
+    async removeParticipant() {
+
     }
+
+
 }
