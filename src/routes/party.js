@@ -12,5 +12,7 @@ export default () => {
 
     api.get('/:id', catchAsync(partyController.findById));
 
+    api.post('/:id/participant', catchAsync(partyController.addParticipant));
+
     return api;
 }
