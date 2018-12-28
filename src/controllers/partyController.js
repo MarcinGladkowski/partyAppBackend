@@ -1,4 +1,5 @@
 import Party from '../models/party';
+import User from "../models/user";
 
 export default {
     /** create new party */
@@ -32,31 +33,32 @@ export default {
 
     async findById(req, res) {
 
-        const party = await Party.findById(req.params.id)
-        .populate('userCreated')
-        .populate('partyType')
-        .populate('participants');
+        const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
 
         return res.status(200).send(party);
     },
 
 
      async addParticipant(req, res) {
-        // user from request and id of party from url
-         const user = req.body;
-         const party = await Party.findById(req.params.id)
-             .populate('userCreated')
-             .populate('partyType')
-             .populate('participants');
+         // user from request and id of party from url
+         // TODO check this user in participants list
+         const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
+         const user = await User.findById(req.body._id);
+
          party.participants.push(user);
          party.save();
          return res.status(200).send(party);
      },
 
     //@TODO remove paticipant from party
-    async removeParticipant() {
+    async removeParticipant(req, res) {
 
+        const userId = req.params.userId;
+        const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
+
+        party.participants.id(userId).remove();
+        party.save();
+
+        return res.status(200).send(party);
     }
-
-
 }
