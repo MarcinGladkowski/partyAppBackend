@@ -14,5 +14,7 @@ export default () => {
 
     api.post('/:id/participant', catchAsync(partyController.addParticipant));
 
+    api.delete('/:id/participant/:userId', catchAsync(partyController.removeParticipant));
+
     return api;
 }
