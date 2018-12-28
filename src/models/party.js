@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
+import { UserSchema } from './user';
 const Schema = mongoose.Schema;
+
 
 const PartySchema = new mongoose.Schema({
     name: {
@@ -30,10 +32,7 @@ const PartySchema = new mongoose.Schema({
         type: Schema.Types.ObjectId, 
         ref: 'PartyType'
     },
-    participants: [{
-        type: Schema.Types.ObjectId, 
-        ref: 'User'
-    }]
+    participants: [UserSchema]
 });
 
 export default mongoose.model('Party', PartySchema);
