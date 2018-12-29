@@ -12,6 +12,8 @@ export default () => {
     api.post('/activate', catchAsync(usersController.activate));
     /** get user data */
     api.get('/', verifyToken, catchAsync(usersController.findOne));
+    /** get user data */
+    api.get('/all', verifyToken, catchAsync(usersController.findAll));
     /** update main user data */
     api.put('/', verifyToken, catchAsync(usersController.update));
     /** update user avatar */
