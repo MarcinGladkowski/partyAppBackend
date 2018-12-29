@@ -5,26 +5,18 @@ export default {
     /** create new party */
     async create(req, res) {
 
-        const { name, desc, latitude, longitude, partyType  } = req.body;
+        const { name, desc, latitude, longitude, partyType, startDate, endDate } = req.body;
         const userCreated = req.userId;
+        const party = await new Party({ name, desc, latitude, longitude, userCreated, partyType, startDate, endDate}).save();
+        const saved = await Party.findOne({_id: party._id}).populate('userCreated').populate('partyType').exec();
+        //  @TODO add location header - address to new resource
 
-        const party = await new Party({ name, desc, latitude, longitude, userCreated, partyType}).save();
-        const saved = await Party.findOne({_id: party._id})
-            .populate('userCreated')
-            .populate('partyType')
-            .exec();
-
-        // @TODO add location header - address to new resource    
- 
         return res.status(201).send({'data': saved});
     },
     /** get all parties */
     async getAll(req, res) {
 
-        await Party.find({})
-        .populate('userCreated')
-        .populate('partyType')
-        .populate('participants')
+        await Party.find({}).populate('userCreated').populate('partyType').populate('participants')
         .exec(function(err, parties) {
             const partyList = parties;
             return res.send({'parties': partyList});
@@ -32,15 +24,11 @@ export default {
     },
 
     async findById(req, res) {
-
         const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
-
         return res.status(200).send(party);
     },
 
-
      async addParticipant(req, res) {
-         // user from request and id of party from url
          // TODO check this user in participants list
          const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
          const user = await User.findById(req.body._id);
