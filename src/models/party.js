@@ -32,6 +32,12 @@ const PartySchema = new mongoose.Schema({
         type: Schema.Types.ObjectId, 
         ref: 'PartyType'
     },
+    startDate: {
+        type: Date,
+    },
+    endDate: {
+        type: Date,
+    },
     participants: [UserSchema]
 });
 
