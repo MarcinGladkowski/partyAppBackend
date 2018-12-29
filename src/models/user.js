@@ -5,15 +5,15 @@ import { hashString } from '../utils/password';
 export const UserSchema = new mongoose.Schema({
     email: {
         type: String,
-        unique: true,
         required: true,
-        trim: true
+        trim: true,
+        index: { unique: true, sparse: true }
     },
     username: {
         type: String,
-        unique: true,
         required: true,
-        trim: true
+        trim: true,
+        index: { unique: true, sparse: true }
     },
     password: {
         type: String,

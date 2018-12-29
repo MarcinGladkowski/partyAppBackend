@@ -6,9 +6,9 @@ const Schema = mongoose.Schema;
 const PartySchema = new mongoose.Schema({
     name: {
         type: String,
-        unique: true,
         required: true,
-        trim: true
+        trim: true,
+        index: { unique: true, sparse: true }
     },
     desc: {
         type: String,
