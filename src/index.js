@@ -20,6 +20,7 @@ import users from './routes/users';
 import auth from './routes/auth';
 import party from './routes/party';
 import partyType from './routes/partyType';
+import partyInvite from './routes/partyInvite';
 
 // auth
 import verifyToken from './auth/authentication';
@@ -41,6 +42,7 @@ app.use('/api/users',  users());
 app.use('/api/auth', auth());
 app.use('/api/party', party());
 app.use('/api/party-type', partyType());
+app.use('/api/party-invite', partyInvite());
 app.use(express.static(__dirname + '/../public'));
 
 // errors handling
