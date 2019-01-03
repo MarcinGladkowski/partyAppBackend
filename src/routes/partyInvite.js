@@ -10,7 +10,7 @@ export default () => {
 
     api.get('/:partyId', catchAsync(partyInviteController.findByParty));
 
-    api.post('/send', catchAsync(partyInviteController.sendInvite));
+    api.patch('/:Id', catchAsync(partyInviteController.sendInvite));
 
     return api;
 }
