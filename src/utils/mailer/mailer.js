@@ -6,11 +6,10 @@ import config from '../../config/config';
  */
 export default class Mailer {
 
-    constructor(user) {
+    constructor(email) {
         this.nodemailer = nodemailer;
-        this.user = user;
+        this.email = email;
         this.createConfiguration();
-        this.prepareEmailLayout(this.user);
     }
 
     createConfiguration() {
@@ -24,23 +23,11 @@ export default class Mailer {
             }
         });
     }
-    
-    /** To refactor - first version sends only register email */
-    prepareEmailLayout(user) {
-        this.mailOptions = {
-            from: config.emailAccount.user,
-            to: this.user.email, 
-            subject: `Cześć ${user.username} Zarejestrowałeś się w aplikacji Imprezownia!`,
-            text: 'potwierdź aktywację konta', 
-            html: `<p>Potwierdź link aktywujący i zaloguj się do aplikacji!</p>
-                   <a href="http://localhost:4200/action/activate/${user.hash}"/>Aktywuj konto</a>`
-        };
-    }
 
     layout(template) {
         this.mailOptions = {
             from: config.emailAccount.user,
-            to: this.user.email,
+            to: this.email,
             subject: template.subject,
             text: template.text,
             html: template.html
