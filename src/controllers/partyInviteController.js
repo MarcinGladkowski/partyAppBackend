@@ -1,6 +1,6 @@
 import PartyInvite from '../models/partyInvite';
 import Mailer from "../utils/mailer/mailer";
-import EmailTemplate from "../utils/mailer/emailTemplate";
+import InviteTemplate from "../utils/mailer/inviteTemplate";
 
 export default {
     async create(req, res) {
@@ -16,19 +16,14 @@ export default {
     },
 
     async sendInvite(req, res) {
+
         const partyInviteId = req.params.Id;
         const { send } = req.body;
+        const partyInvite = await PartyInvite.findByIdAndUpdate({_id: partyInviteId}, {send: send}).populate("userInvited").populate("party");
 
-        const partyInvite = await PartyInvite.findByIdAndUpdate({_id: partyInviteId}, {send: send}).populate("userInvited");
-        // @TODO send email
-        const user = partyInvite.userInvited;
-        const subject = `Cześć ${user.username} Zarejestrowałeś się w aplikacji Imprezownia!`,
-            text = 'potwierdź aktywację konta',
-            html = `<p>Potwierdź link aktywujący i zaloguj się do aplikacji!</p>
-                   <a href="http://localhost:4200/action/activate/${user.hash}"/>Aktywuj konto</a>`;
-
-        const inviteEmail = new EmailTemplate(subject, text, html);
-        new Mailer(user).layout(inviteEmail).sendEmail();
+        const { userInvited, party} = partyInvite;
+        const inviteEmail = new InviteTemplate(userInvited, party).makeTemplate();
+        new Mailer(userInvited.email).layout(inviteEmail).sendEmail();
 
         return res.status(200).send(partyInvite);
     }
