@@ -9,7 +9,6 @@ export default class Mailer {
     constructor(user) {
         this.nodemailer = nodemailer;
         this.user = user;
-
         this.createConfiguration();
         this.prepareEmailLayout(this.user);
     }
@@ -36,6 +35,17 @@ export default class Mailer {
             html: `<p>Potwierdź link aktywujący i zaloguj się do aplikacji!</p>
                    <a href="http://localhost:4200/action/activate/${user.hash}"/>Aktywuj konto</a>`
         };
+    }
+
+    layout(template) {
+        this.mailOptions = {
+            from: config.emailAccount.user,
+            to: this.user.email,
+            subject: template.subject,
+            text: template.text,
+            html: template.html
+        }
+        return this;
     }
 
     sendEmail() {
