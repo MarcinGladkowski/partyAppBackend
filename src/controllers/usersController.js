@@ -1,12 +1,16 @@
 import User from '../models/user';
 import Mailer from '../utils/mailer/mailer';
-import PartyType from "../models/partyType";
+import RegisterTemplate from "../utils/mailer/registerTemplate";
 
 export default {
     async create(req, res) {
+        
         const {email, username, password} = req.body;
         const user = await new User({email, username, password}).save();
-        new Mailer(user).sendEmail();
+
+        const registerEmail = new RegisterTemplate(user).makeTemplate();
+        new Mailer(user.email).layout(registerEmail).sendEmail();
+
         return res.status(201).send(user);
     },
 
@@ -17,7 +21,7 @@ export default {
                 return res.status(200).send({'status': 'error'});
             }
             if (!user) {
-                return res.status(200).send({'status': 'error'});
+                return res.status(200).send({'status': 'user not found'});
             }
             return res.status(201).send(user);
         });
@@ -40,6 +44,7 @@ export default {
             return res.status(200).send(user);
         });
     },
+
     /** Update avatar for user */
     async updateAvatar(req, res) {
         if (req.file) {
