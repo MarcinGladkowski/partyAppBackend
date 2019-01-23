@@ -25,7 +25,7 @@ import partyInvite from './routes/partyInvite';
 // auth
 import verifyToken from './auth/authentication';
 
-mongoose.connect(config.database.mongoUrl);
+mongoose.connect(config.database.mongoUrl, { useNewUrlParser: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
     console.log('Could not connect to the database. Exiting now...');
@@ -43,12 +43,10 @@ app.use('/api/auth', auth());
 app.use('/api/party', party());
 app.use('/api/party-type', partyType());
 app.use('/api/party-invite', partyInvite());
-app.use(express.static(__dirname + '/../public'));
-
+app.use('/public/', express.static(__dirname + '/../public'));
 // errors handling
 app.use(notFound);
 app.use(catchErrors);
-
 // let's play!
 app.listen(config.server.port, () => {
     console.log(`Server is up! at ${config.server.port}`);
