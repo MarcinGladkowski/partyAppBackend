@@ -45,7 +45,10 @@ export default {
 
     /** For login and register unathorized forms */
     async isUserExists(req, res) {
-        await User.findOne({ email: req.query.email }, (err, user) => {
+        await User.findOne({ $or: [
+                {email: req.query.email},
+                {username: req.query.username}
+            ]}, (err, user) => {
             if (err) { return res.status(500).send('Error on the server.') }
             if (!user) { return res.status(404).send({'message': 'No user found.'}) }
             if (user) { return res.status(200).send({'status': true}) }
