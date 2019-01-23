@@ -15,7 +15,6 @@ export default {
     },
     /** get all parties */
     async getAll(req, res) {
-
         await Party.find({}).populate('userCreated').populate('partyType').populate('participants')
         .exec(function(err, parties) {
             const partyList = parties;
@@ -25,6 +24,7 @@ export default {
 
     async findById(req, res) {
         const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
+        if (!party) { return res.status(404).send({'message': 'data not found'}); }
         return res.status(200).send(party);
     },
 
@@ -32,9 +32,9 @@ export default {
          // TODO check this user in participants list
          const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
          const user = await User.findById(req.body._id);
-
          party.participants.push(user);
          party.save();
+
          return res.status(200).send(party);
      },
 
