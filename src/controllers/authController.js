@@ -19,8 +19,12 @@ export default {
             const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
 
             if (!passwordIsValid) {
-                return res.status(401).send({ auth: false, token: null });
-            } 
+                return res.status(401).send({ auth: false, token: null, message: 'Błędne hasło lub email' });
+            }
+
+            if (user.active === false) {
+                return res.status(401).send({ auth: false, token: null, message: 'Konto jest nieaktywne' });
+            }
 
             const token = jwt.sign({ id: user._id }, config.secret, {
                 expiresIn: 1800 // 30 min
