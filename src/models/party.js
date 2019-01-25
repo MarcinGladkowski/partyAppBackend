@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import { UserSchema } from './user';
 const Schema = mongoose.Schema;
 
-
 const PartySchema = new mongoose.Schema({
     name: {
         type: String,
@@ -38,7 +37,10 @@ const PartySchema = new mongoose.Schema({
     endDate: {
         type: Date,
     },
-    participants: [UserSchema]
+    participants: [{
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 export default mongoose.model('Party', PartySchema);
