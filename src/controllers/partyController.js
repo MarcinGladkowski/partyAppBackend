@@ -23,28 +23,24 @@ export default {
     },
 
     async findById(req, res) {
-        const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
+        const party = await Party.findById(req.params.id).populate({path: 'participants', model: 'User'}).populate('userCreated').populate('partyType');
         if (!party) { return res.status(404).send({'message': 'data not found'}); }
         return res.status(200).send(party);
     },
 
      async addParticipant(req, res) {
-         // TODO check this user in participants list
          const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
          const user = await User.findById(req.body._id);
          party.participants.push(user);
          party.save();
-
          return res.status(200).send(party);
      },
 
-    //@TODO remove paticipant from party
     async removeParticipant(req, res) {
-
         const userId = req.params.userId;
         const party = await Party.findById(req.params.id).populate('userCreated').populate('partyType').populate('participants');
 
-        party.participants.id(userId).remove();
+        party.participants.remove({_id: userId});
         party.save();
 
         return res.status(200).send(party);
