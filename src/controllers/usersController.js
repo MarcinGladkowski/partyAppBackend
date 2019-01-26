@@ -26,11 +26,21 @@ export default {
             return res.status(201).send(user);
         });
     },
-
+    /**
+     * get Data of logged user. userId exist if user is authorized
+     * @param req
+     * @param res
+     * @returns {Promise<void>}
+     */
     async findOne(req, res) {
         const user = await User.findById(req.userId, function (err, user) {
+            if(user) return res.status(200).send(user);
         });
-        return res.status(200).send(user);
+    },
+
+    async findAll(req, res) {
+        const users = await User.find({});
+        return res.status(200).send(users);
     },
 
     async update(req, res) {
