@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import crypto from 'crypto';
 import { hashString } from '../utils/password';
 
-export const UserSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
@@ -31,7 +31,8 @@ export const UserSchema = new mongoose.Schema({
     avatar: {
         type: String,
         required: false,
-        trim: true
+        trim: true,
+        default: '/public/avatar/defaultAvatar.png'
     }
 });
 
