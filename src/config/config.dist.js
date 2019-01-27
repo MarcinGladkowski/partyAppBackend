@@ -10,6 +10,7 @@ import database from "./database";
 export default  {
     env: process.env.NODE_ENV,
     server: {
+        ip: 'localhost',
         port: Number(process.env.PORT)
     },
     secret: '1233456',
