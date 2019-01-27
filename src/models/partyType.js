@@ -14,7 +14,11 @@ const PartyTypeSchema = new mongoose.Schema({
     },
     filename: {
         type: String,
-        required: true,
+        required: false,
+    },
+    filenamePhoto: {
+        type: String,
+        required: false,
     },
     createdDate: {
         type: Date, 
