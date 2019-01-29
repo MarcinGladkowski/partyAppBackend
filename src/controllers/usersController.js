@@ -38,11 +38,13 @@ export default {
         });
     },
 
+    /** return all users */
     async findAll(req, res) {
         const users = await User.find({});
         return res.status(200).send(users);
     },
 
+    /** update user profile */
     async update(req, res) {
         const {email, username} = req.body;
         await User.findByIdAndUpdate(req.userId, {
@@ -58,7 +60,10 @@ export default {
     /** Update avatar for user */
     async updateAvatar(req, res) {
         if (req.file) {
-            await User.findByIdAndUpdate(req.userId, {$set: {avatar: req.file.filename}}, {new: true}, (err, user) => {
+
+            const avatar = `/public/avatar/${req.file.filename}`;
+
+            await User.findByIdAndUpdate(req.userId, {$set: {avatar}}, {new: true}, (err, user) => {
                 return res.status(200).send(user);
             });
         } else {
