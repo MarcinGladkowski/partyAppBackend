@@ -37,6 +37,10 @@ const PartySchema = new mongoose.Schema({
     endDate: {
         type: Date,
     },
+    priv: {
+        type: Boolean,
+        default: false
+    },
     participants: [{
         type: Schema.Types.ObjectId,
         ref: 'User'

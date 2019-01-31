@@ -5,9 +5,9 @@ export default {
     /** create new party */
     async create(req, res) {
 
-        const { name, desc, latitude, longitude, partyType, startDate, endDate } = req.body;
+        const { name, desc, latitude, longitude, partyType, startDate, endDate, priv } = req.body;
         const userCreated = req.userId;
-        const party = await new Party({ name, desc, latitude, longitude, userCreated, partyType, startDate, endDate}).save();
+        const party = await new Party({ name, desc, latitude, longitude, userCreated, partyType, startDate, endDate, priv}).save();
         const saved = await Party.findOne({_id: party._id}).populate('userCreated').populate('partyType').exec();
         //  @TODO add location header - address to new resource
 
@@ -15,11 +15,17 @@ export default {
     },
     /** get all parties */
     async getAll(req, res) {
-        await Party.find({}).populate('userCreated').populate('partyType').populate('participants')
-        .exec(function(err, parties) {
-            const partyList = parties;
-            return res.send({'parties': partyList});
-        });
+        if (req.query.priv === 'no') {
+            await Party.find({priv: null}).populate('userCreated').populate('partyType').populate('participants')
+                .exec(function (err, parties) {
+                    return res.send({'parties': parties});
+                });
+        } else {
+            await Party.find({}).populate('userCreated').populate('partyType').populate('participants')
+                .exec(function (err, parties) {
+                    return res.send({'parties': parties});
+                });
+        }
     },
 
     async findById(req, res) {
